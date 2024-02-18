@@ -1,5 +1,6 @@
-from pygooglenews import GoogleNews
 import requests
+import json
+from pygooglenews import GoogleNews
 from newspaper import Article
 
 gn = GoogleNews(lang='en', country='IN')
@@ -25,9 +26,12 @@ def get_event_article_list(entry):
     article_list = [get_url_article_dict(entry.link)]
     for article_link in entry['sub_articles']:
         article_list.append(get_url_article_dict(article_link['url']))
-    print(f"Total articles processed: {len(article_list)}")
+    return article_list
 
 top = gn.top_news()
 
-print(f"Main article plus sub articles: {len(top['entries'][0]['sub_articles']) + 1}")
-get_event_article_list(top['entries'][0])
+event_article_list = get_event_article_list(top['entries'][0])
+
+event_json = json.dumps(event_article_list)
+
+print(f"Event json:\n{event_json}")
