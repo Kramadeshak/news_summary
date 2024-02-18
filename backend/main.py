@@ -4,19 +4,24 @@ from newspaper import Article
 
 gn = GoogleNews(lang='en', country='IN')
 
+def redirect_link(link):
+    r = requests.get(link)
+    return r.url
+    
 
-def get_url(entry):
-    r= requests.get(entry['link'])
-    url = r.url
+def get_article(url):
     article = Article(url)
     article.download()
     article.parse()
-    print(article.text)
+    return article.text
 
+def get_url_article_dict(link):
+    url_article_dict = {}
+    url = redirect_link(link)
+    url_article_dict['url'] = url
+    url_article_dict['article'] = get_article(url)
+    return url_article_dict
 
 
 
 top = gn.top_news()
-
-get_url(top['entries'][0])
-
