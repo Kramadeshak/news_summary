@@ -7,6 +7,10 @@ from gpt import generate_script
 
 
 def redirect_link(link):
+    """
+    Article links on Google News point to a google news redirector and the links by pygooglenews library are
+    stored as such. This function opens the redirector links and returns the article url after redirection occurs.
+    """
     r = requests.get(link)
     return r.url
 
@@ -43,8 +47,15 @@ for entry in top_news['entries']:
     response = generate_script(gpt_token_json, 'g4f')
     print(response)
 
- # multiple prompt for summary generation | combine multiple outputs, generate script(video fetching sources ko combine kaise krna h): videos generated on the basis of template created
- # references - sources for claiming genuinity
- # DB design
- # embeddings - gpt->number(embedding{data correlation}: can be loaded, for initial context & classification) | Eg - search via embeddings corellation
- # graphQL - expose as a service
+
+# Different sources of information
+# Different aggregators of information
+# parallelize article download 
+# configure access to different topics
+# multiple prompt for summary generation
+# combine multiple outputs
+# generate script(video fetching sources ko combine kaise krna h): videos generated on the basis of template created
+# references - sources for claiming genuinity
+# DB design
+# embeddings - gpt->number(embedding{data correlation}: can be loaded, for initial context & classification) | Eg - search via embeddings corellation
+# graphQL - expose as a service
