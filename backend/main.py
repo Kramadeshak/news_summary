@@ -2,7 +2,7 @@ import requests
 import json
 from pygooglenews import GoogleNews
 from newspaper import Article
-from gpt import generate_script
+from gpt import generate_5w1h_summary
 
 
 
@@ -44,7 +44,7 @@ for entry in top_news['entries']:
 
     print(f"Token length:{len(gpt_token_json)}")
 
-    response = generate_script(gpt_token_json, 'g4f')
+    response = generate_5w1h_summary(gpt_token_json, 'g4f')
     print(response)
 
 
