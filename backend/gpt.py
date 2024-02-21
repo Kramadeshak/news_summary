@@ -77,14 +77,36 @@ def generate_5w1h_summary(article_json: str, ai_model: str) -> str:
 
     """
 
-    prompt = f"""
-            You are being given a json containing a list of titles and articles. These articles are different news articles about a news topic. Process these articles do the following tasks-
-            1. Identify the news topic covered by the articles.
-            2. List 5W and 1H questions surrouding the topic referencing the articles.
-            3. The answer to those questions. 
-    Article: {article_json}
-        """
-    
+    prompt = """Write the name of the event, type of the event,
+                involved person, involved countries and the location of the
+                event from the following news. Use IPTC media topic name
+                while writing values for 'Event type'. Write full name while
+                mentioning involved persons and locations. Write only name
+                of persons if they are known. No need to include any
+                unknown person. Also do not need to write the designation
+                or position of the persons. While returning the location,
+                mention the country where the event took place. While
+                returning the iptc media topic names, please return the
+                output for which you are significantly confident about.
+                If there are more values, generate an array json.
+                List 5W and 1H questions surrouding the topic referencing the articles.
+                The answer to those questions. 
+                Format your answer as a JSON object
+                with the following key-values:
+                {
+                    “Event": “event-name",
+                    “Event Type": “iptc-media-topic-name",
+                    “Involved Countries": “country-name",
+                    “Location of Event": “city-name",
+                    “Involved-People": {1:“Person1-name", 2:“Person2-name",3:“Person3-name", ....},
+                    "what": {"question": "what-question", "answer": "what-answer"}, 
+                    "who": {"question": "who-question", "answer": "who-answer"}, 
+                    "where": {"question": "where-question", "answer": "where-answer"}, 
+                    "why": {"question": "why-question", "answer": "why-answer"}, 
+                    "when": {"question": "when-question", "answer": "when-answer"},
+                    "how": {"question": "how-question", "answer": "how-answer"}
+                }
+                the news:""" + article_json
     response = generate_response(prompt, ai_model)
 
     if response:

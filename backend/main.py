@@ -45,7 +45,14 @@ for entry in top_news['entries']:
     print(f"Token length:{len(gpt_token_json)}")
 
     response = generate_5w1h_summary(gpt_token_json, 'g4f')
-    print(response)
+    try:
+        response_dict = json.loads(response)
+    except Exception:
+        if response[:7] == '```json':
+            response_dict = json.loads((response[8:])[:-4])
+        else:
+            response_dict = "ERROR: Unable to process json. Response:\n" + response
+    print(response_dict)
 
 
 # Different sources of information
