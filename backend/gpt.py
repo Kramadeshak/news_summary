@@ -90,6 +90,7 @@ def generate_5w1h_summary(article_json: str, ai_model: str) -> str:
                 output for which you are significantly confident about.
                 If there are more values, generate an array json.
                 List 5W and 1H questions surrouding the topic referencing the articles.
+                Also list the important search keywords which can help us gain more information about the issue.
                 The answer to those questions. 
                 Format your answer as a JSON object
                 with the following key-values:
@@ -104,7 +105,8 @@ def generate_5w1h_summary(article_json: str, ai_model: str) -> str:
                     "where": {"question": "where-question", "answer": "where-answer"}, 
                     "why": {"question": "why-question", "answer": "why-answer"}, 
                     "when": {"question": "when-question", "answer": "when-answer"},
-                    "how": {"question": "how-question", "answer": "how-answer"}
+                    "how": {"question": "how-question", "answer": "how-answer"},
+                    "search_keywords": {1:"search-keyword1,2:"search-keyword2,3:"search-keyword3, ....}
                 }
                 the news:""" + article_json
     response = generate_response(prompt, ai_model)
