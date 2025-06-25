@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  summariser:
+    image: news-summary:latest
+    container_name: summariser
+    ports:
+      - "8000:8000"
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/news
+    depends_on:
+      - mongodb
