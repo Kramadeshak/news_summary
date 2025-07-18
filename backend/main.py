@@ -44,7 +44,7 @@ for entry in top_news['entries']:
 
     print(f"Token length:{len(gpt_token_json)}")
 
-    response = generate_5w1h_summary(gpt_token_json, 'g4f')
+    response = generate_5w1h_summary(gpt_token_json, 'gpt3.5-turbo')
     try:
         response_dict = json.loads(response)
     except Exception:
