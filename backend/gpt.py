@@ -1,6 +1,6 @@
 import re
 import json
-import g4f
+from g4f.client import Client
 import openai
 from typing import Tuple, List  
 from termcolor import colored
@@ -29,21 +29,12 @@ def generate_response(prompt: str, ai_model: str) -> str:
 
     """
 
-    if ai_model == 'g4f':
-
-        response = g4f.ChatCompletion.create(
-
-            model=g4f.models.gpt_35_turbo_16k_0613,
-
-            messages=[{"role": "user", "content": prompt}],
-
-        )
-
-    elif ai_model in ["gpt3.5-turbo", "gpt4"]:
+    if ai_model in ["gpt3.5-turbo", "gpt4"]:
 
         model_name = "gpt-3.5-turbo" if ai_model == "gpt3.5-turbo" else "gpt-4-1106-preview"
+        client = Client()
 
-        response = openai.chat.completions.create(
+        response = client.chat.completions.create(
 
             model=model_name,
 
