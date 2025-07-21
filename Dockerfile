@@ -1,6 +1,6 @@
 FROM python:3.13-slim-bookworm
 
-COPY backend/* /app/
+COPY old_backend/* /app/
 
 COPY requirements.txt ./
 
